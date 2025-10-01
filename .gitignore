@@ -1,25 +1,18 @@
-
-.idea/
-*.iml
-
-.project
+# Eclipse
 .classpath
+.project
 .settings/
+.metadata
 
-
-bin/
-build/
-out/
+# Maven/Gradle build output
 target/
+build/
+*.war
+*.jar
 
-
-.DS_Store
-Thumbs.db
-
-
+# Log files
 *.log
 
-
-*.jar
-*.war
-*.ear
+# IDE temporary files
+.idea/
+*.iml
