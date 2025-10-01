@@ -2,7 +2,9 @@ package com.main;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.employee.Employee;
 import com.employee.EmployeeDao;
 
 public class DBmain {
@@ -30,10 +32,11 @@ public class DBmain {
 
 //		select
 //		부서가 개발부
-		/*
-		 * List<Employee> employees = dao.selectTable("개발부"); for (Employee emp :
-		 * employees) { System.out.println(emp); }
-		 */
+
+		List<Employee> employees = dao.selectTable("개발부");
+		for (Employee emp : employees) {
+			System.out.println(emp);
+		}
 
 //		급여 조건부 검색
 		/*
@@ -53,7 +56,7 @@ public class DBmain {
 //		emp.updateEmployee("이순신", 3500000);
 
 //		delete(id)
-		dao.deleteEmployee(1);
+//		dao.deleteEmployee(1);
 	}
 
 }
