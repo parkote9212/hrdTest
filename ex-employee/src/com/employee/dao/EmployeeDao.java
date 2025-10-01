@@ -1,4 +1,4 @@
-package com.employee;
+package com.employee.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.employee.dto.Employee;
 import com.main.DBConnection;
 
 public class EmployeeDao {
@@ -67,7 +68,8 @@ public class EmployeeDao {
 				System.out.println("리스트 생성 성공");
 			}
 		} catch (SQLException e) {
-			System.err.println("부서별 조회 실패: " + e.getMessage());
+			// 예외를 잡아서 구체적인 메시지와 함께 상위 계층으로 던집니다.
+			throw new RuntimeException("부서별 조회 중 DB 오류 발생", e);
 		}
 
 		// 4. 조회된 데이터가 담긴 리스트를 반환
@@ -99,7 +101,8 @@ public class EmployeeDao {
 				System.out.println("리스트 생성 성공");
 			}
 		} catch (SQLException e) {
-			System.err.println("조건식 조회 실패: " + e.getMessage());
+			// 예외를 잡아서 구체적인 메시지와 함께 상위 계층으로 던집니다.
+			throw new RuntimeException("급여 조건별 조회 중 DB 오류 발생", e);
 		}
 
 		// 4. 조회된 데이터가 담긴 리스트를 반환
@@ -126,7 +129,7 @@ public class EmployeeDao {
 			System.out.println("배치 작업 성공! 총 " + result.length + "건의 데이터가 처리되었습니다.");
 
 		} catch (SQLException e) {
-			System.err.println("배치 작업 실패: " + e.getMessage());
+			throw new RuntimeException("배치 작업 중 DB 오류 발생", e);
 		}
 	}
 
@@ -151,8 +154,7 @@ public class EmployeeDao {
 			}
 
 		} catch (SQLException e) {
-			System.err.println("데이터 삽입 실패: " + e.getMessage());
-			return false;
+			throw new RuntimeException("데이터 삽입중 오류 발생", e);
 		}
 	}
 
@@ -173,8 +175,7 @@ public class EmployeeDao {
 				return false;
 			}
 		} catch (SQLException e) {
-			System.err.println("데이터 수정 실패: " + e.getMessage());
-			return false;
+			throw new RuntimeException("데이터 찾기중 오류 발생", e);
 		}
 
 	}
@@ -198,8 +199,7 @@ public class EmployeeDao {
 				return false;
 			}
 		} catch (SQLException e) {
-			System.err.println("데이터 삭제 실패: " + e.getMessage());
-			return false;
+			throw new RuntimeException("데이터 삭제중 오류 발생", e);
 		}
 	}
 }

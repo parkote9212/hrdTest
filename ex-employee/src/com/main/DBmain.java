@@ -1,62 +1,37 @@
 package com.main;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
-
-import com.employee.Employee;
-import com.employee.EmployeeDao;
+import com.employee.dao.EmployeeDao;
+import com.employee.dto.Employee;
 
 public class DBmain {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try (Connection conn = DBConnection.getConnection()) {
-			System.out.println("==DB 연결 성공 ==");
-		} catch (SQLException e) {
-			System.err.println("==DB 연결 실패 ==" + e.getMessage());
-		}
-		EmployeeDao dao = new EmployeeDao();
-//		create
-//		dao.createTables();
+    public static void main(String[] args) {
+        // DAO 객체 생성은 try 블록 바깥에 두어도 괜찮습니다.
+        EmployeeDao dao = new EmployeeDao();
 
-//		drop
-//		dao.dropTable("employee");
+        try {
+            // 이제 별도의 연결 테스트 없이 바로 실제 로직을 실행합니다.
+            // 만약 여기서 DB 연결이 실패하면 catch 블록으로 바로 이동합니다.
+            
+            System.out.println("== 개발부 직원 조회 ==");
+            List<Employee> employees = dao.selectTable("개발부");
 
-//		대규모 데이터 삽입(배치사용)
-//		배치로 삽입할 데이터 가져오기
-		/*
-		 * List<Employee> employees = EmployeeData.getEmployees(); // 배치 실행
-		 * dao.insertEmployeesBatch(employees);
-		 */
+            if (employees.isEmpty()) {
+                System.out.println("조회된 데이터가 없습니다.");
+            } else {
+                for (Employee emp : employees) {
+                    System.out.println(emp);
+                }
+            }
 
-//		select
-//		부서가 개발부
+            // ... 다른 DAO 메소드 호출 ...
 
-		List<Employee> employees = dao.selectTable("개발부");
-		for (Employee emp : employees) {
-			System.out.println(emp);
-		}
-
-//		급여 조건부 검색
-		/*
-		 * List<Employee> employees = dao.selectTable(3000000); for (Employee emp :
-		 * employees) { System.out.println(emp); }
-		 */
-
-//		insert
-//		직원명,부서,입사일자,월급
-		/*
-		 * dao.insertEmployee("홍길동", "영업부", "2020-03-01", 2500000);
-		 * dao.insertEmployee("이순신", "인사부", "2019-07-15", 3200000);
-		 * dao.insertEmployee("강감찬", "개발부", "2021-01-10", 2800000);
-		 */
-
-// 		update(이름,월급)
-//		emp.updateEmployee("이순신", 3500000);
-
-//		delete(id)
-//		dao.deleteEmployee(1);
-	}
-
+        } catch (RuntimeException e) {
+            // 모든 DB 관련 오류는 여기서 처리됩니다.
+            System.err.println("데이터베이스 작업 중 오류가 발생했습니다.");
+            // e.getMessage()는 구체적인 원인을 보여주므로 디버깅에 유용합니다.
+            System.err.println("원인: " + e.getMessage()); 
+        }
+    }
 }

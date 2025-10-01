@@ -1,4 +1,4 @@
-package com.employee;
+package com.employee.dto;
 
 import java.time.LocalDate;
 
@@ -7,11 +7,11 @@ import java.time.LocalDate;
  */
 public class Employee {
 
-	private int empNo; // 직원 번호 (INT)
-	private String empName; // 직원 이름 (VARCHAR)
-	private String dept; // 부서 (VARCHAR)
-	private LocalDate hireDate; // 입사일 (DATE)
-	private int salary; // 급여 (INT)
+	private int empNo;
+	private String empName;
+	private String dept;
+	private LocalDate hireDate;
+	private int salary;
 
 	// 모든 필드를 초기화하는 생성자
 	public Employee(int empNo, String empName, String dept, LocalDate hireDate, int salary) {
