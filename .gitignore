@@ -3,10 +3,11 @@
 .project
 .settings/
 .metadata
+/bin/
 
 # Maven/Gradle build output
-target/
-build/
+/target/
+/build/
 *.war
 *.jar
 
